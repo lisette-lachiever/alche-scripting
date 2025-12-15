@@ -1,20 +1,15 @@
 #!/usr/bin/python3
-"""
-Queries the Reddit API recursively and prints a sorted count of
-given keywords found in hot post titles of a subreddit.
-"""
+"""Queries the Reddit API recursively and prints a sorted count of given keywords in hot post titles."""
 
 import requests
 
 
-def count_words(subreddit, word_list, after=None, counts={}):
-    """
-    Recursively counts keyword occurrences in hot post titles.
-    """
-    if not counts:
+def count_words(subreddit, word_list, after=None, counts=None):
+    """Recursively counts keyword occurrences in hot post titles."""
+    if counts is None:
+        counts = {}
         for w in word_list:
-            w = w.lower()
-            counts[w] = counts.get(w, 0)
+            counts[w.lower()] = 0
 
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
     headers = {"User-Agent": "python-script"}
