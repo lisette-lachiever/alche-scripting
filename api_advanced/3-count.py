@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-Counts keywords in hot Reddit post titles using recursion.
+Queries the Reddit API recursively and prints a sorted count of
+given keywords found in hot post titles of a subreddit.
 """
 
 import requests
