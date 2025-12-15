@@ -8,6 +8,9 @@ import requests
 
 
 def count_words(subreddit, word_list, after=None, counts={}):
+    """
+    Recursively counts keyword occurrences in hot post titles.
+    """
     if not counts:
         for w in word_list:
             w = w.lower()
