@@ -7,17 +7,20 @@ import requests
 
 
 def top_ten(subreddit):
-    url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
-    headers = {"User-Agent": "python-script"}
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
+    headers = {"User-Agent": "python:top.ten.script:v1.0 (by /u/anonymous)"}
 
-    response = requests.get(url, headers=headers, allow_redirects=False)
+    try:
+        response = requests.get(url, headers=headers, allow_redirects=False, timeout=10)
+        if response.status_code != 200:
+            print(None)
+            return
 
-    if response.status_code != 200:
+        data = response.json()
+        posts = data["data"]["children"]
+
+        for post in posts:
+            print(post["data"]["title"])
+
+    except requests.RequestException:
         print(None)
-        return
-
-    data = response.json()
-    posts = data["data"]["children"]
-
-    for post in posts:
-        print(post["data"]["title"])
